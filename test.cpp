@@ -12,8 +12,13 @@ Node * newnode() {return new Node();}
 
 int main()
 {
-    char s[100] = "abc";
-    cout<<strcmp(s,"ab");
+    string s = "1 2 3";
+    istringstream iss(s);
+    int a;
+    while(iss>>a)
+    {
+        cout<<a<<endl;
+    }
 
     return 0;
 }
