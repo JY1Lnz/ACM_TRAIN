@@ -3,6 +3,7 @@ using namespace std;
 const int maxn = 10;
 int data[maxn][maxn];
 int vis[maxn][maxn];
+//如果一个无向图是连同的且奇数
 stack<pair<int,int> > path;
 void euler(int u)
 {

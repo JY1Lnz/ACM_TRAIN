@@ -4,35 +4,41 @@ using namespace std;
 int head[26];
 int num;
 bool flag = false;
-vector<int> data[26];
+queue<int> data[26];
 void Input(string s)
 {
-    cout<<s<<endl;
-    data[s[0]-'a'].push_back(s[s.length()-1]-'a');
-    head[s[0]-'a']++;
+    data[s[0]-'a'].push(s[s.length()-1]-'a');
+    head[s[0]-'a'] = 1;
 }
 
 void dfs(int u,int sum)
 {
-    if (num == sum)
+    if (sum == num)
     {
         flag = true;
         return;
     }
     for (int i = 0;i<data[u].size();i++)
     {
-        dfs(data[u][i],num+1);
+        if (data[u].size() == 0)
+            break;
+        int next = data[u].front();
+        data[u].pop();
+        dfs(next,sum+1);
+        data[u].push(next);
     }
 }
 
 int main()
 {
+
     int t;
     cin>>t;
     while(t--)
     {
         for (int i = 0;i<26;i++)
-            data[i].clear();
+            while(!data[i].empty())
+                data[i].pop();
         flag = false;
         memset(head,0,sizeof(head));
         string s;
@@ -42,23 +48,20 @@ int main()
             cin>>s;
             Input(s);
         }
-        char first;
         for (int i = 0;i<26;i++)
         {
-            if (!head[i])
+            if (head[i])
             {
-                dfs(i,1);
-                if (flag)
+                dfs(i,0);
+                if(flag)
                     break;
             }
         }
         if (flag)
-            cout<<1<<endl;
+            cout<<"Ordering is possible."<<endl;
         else
-            cout<<0<<endl;
+            cout<<"The door cannot be opened."<<endl;
     }
-
-    return 0;
 }
 /*
 3
