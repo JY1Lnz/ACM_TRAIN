@@ -4,8 +4,8 @@
 using namespace std;
 
 int n,m,k;
-int map[22][22][22];
-int vis[22][22];
+int map[22][22];
+int vis[22][22][22];
 
 struct Node
 {
@@ -13,7 +13,7 @@ struct Node
     int y;
     int step;
     int knum;
-    Node():x(0),y(0),step(0),knum(0){}
+    Node(int x,int y,int step,int knum):x(x),y(y),step(step),knum(knum){}
 };
 
 int Solve()
@@ -38,7 +38,7 @@ int Solve()
             if (tx < 1||tx > m||ty < 1||ty > n)
                 continue;
             int kx = knum;
-            if (data[tx][ty] == 1)
+            if (map[tx][ty] == 1)
                 kx++;
             else
                 kx = 0;
@@ -46,8 +46,8 @@ int Solve()
                 continue;
             if (vis[tx][ty][kx] == 1)
                 continue;
-            q.push(Node(ts,ty,step+1,kx));
-            vis[tx][ty][kx = 1;]
+            q.push(Node(tx,ty,step+1,kx));
+            vis[tx][ty][kx] = 1;
         }
 
         q.pop();
